@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="TransactionController"
+      alignment="CENTER"
+      spacing="12"
+      style="-fx-padding: 25;">
+
+    <Label text="TRANSACTION MANAGEMENT"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="amountField"
+               promptText="Enter Amount"
+               maxWidth="250"/>
+
+    <Button text="Deposit"
+            onAction="#handleDeposit"/>
+
+    <Button text="Withdraw"
+            onAction="#handleWithdraw"/>
+
+    <Button text="View Transaction History"
+            onAction="#handleHistory"/>
+
+    <TextArea fx:id="historyArea"
+              editable="false"
+              prefHeight="150"
+              prefWidth="450"/>
+
+    <Label fx:id="messageLabel" wrapText="true"/>
+
+    <Button text="Back to Dashboard"
+            onAction="#goBack"/>
+
+</VBox>

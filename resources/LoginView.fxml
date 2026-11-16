@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="LoginController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-padding: 30;">
+
+    <Label text="BANKING SYSTEM"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <Label text="Customer Login"/>
+
+    <TextField fx:id="usernameField"
+               promptText="Username"
+               maxWidth="250"/>
+
+    <PasswordField fx:id="passwordField"
+                   promptText="Password"
+                   maxWidth="250"/>
+
+    <Button text="Login"
+            onAction="#handleLogin"/>
+
+    <Label fx:id="messageLabel" wrapText="true"/>
+
+</VBox>

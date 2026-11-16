@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="InterestController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-padding: 25;">
+
+    <Label text="INTEREST MANAGEMENT"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <Button text="Display Interest Rate"
+            onAction="#showInterestRate"/>
+
+    <Button text="Calculate Interest"
+            onAction="#calculateInterest"/>
+
+    <Button text="Process Monthly Interest"
+            onAction="#processInterest"/>
+
+    <Label fx:id="messageLabel" wrapText="true"/>
+
+    <Button text="Back to Dashboard"
+            onAction="#goBack"/>
+
+</VBox>

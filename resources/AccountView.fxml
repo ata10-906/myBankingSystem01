@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="AccountController"
+      alignment="CENTER"
+      spacing="12"
+      prefWidth="520"
+      prefHeight="700">
+
+    <Label text="ACCOUNT MANAGEMENT"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <Label text="Open a New Account"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <!-- Select account type -->
+    <ComboBox fx:id="accountTypeBox"
+              promptText="Select Account Type"
+              onAction="#handleAccountTypeChanged"
+              prefWidth="280"/>
+
+    <!-- Initial deposit -->
+    <TextField fx:id="depositField"
+               promptText="Enter initial deposit"
+               prefWidth="280"/>
+
+    <!-- Branch -->
+    <TextField fx:id="branchField"
+               promptText="Enter branch"
+               prefWidth="280"/>
+
+    <!-- Employer details: displayed only for Cheque Accounts -->
+    <VBox fx:id="employerFields"
+          alignment="CENTER"
+          spacing="8"
+          visible="false"
+          managed="false">
+
+        <Label text="Employer Details"
+               style="-fx-font-weight: bold;"/>
+
+        <TextField fx:id="companyNameField"
+                   promptText="Enter company name"
+                   prefWidth="280"/>
+
+        <TextField fx:id="companyAddressField"
+                   promptText="Enter company address"
+                   prefWidth="280"/>
+
+        <TextField fx:id="employeeNumberField"
+                   promptText="Enter employee number"
+                   prefWidth="280"/>
+
+    </VBox>
+
+    <!-- Open account button -->
+    <Button text="Open Account"
+            onAction="#handleOpenAccount"
+            prefWidth="160"/>
+
+    <!-- Existing accounts -->
+    <Label text="Select an Existing Account"
+           style="-fx-font-weight: bold;"/>
+
+    <ComboBox fx:id="existingAccountBox"
+              promptText="Select Existing Account"
+              onAction="#handleSelectAccount"
+              prefWidth="280"/>
+
+    <!-- Check balance -->
+    <Button text="Check Balance"
+            onAction="#handleCheckBalance"
+            prefWidth="160"/>
+
+    <!-- System messages -->
+    <Label fx:id="messageLabel"
+           text="System ready"
+           wrapText="true"
+           maxWidth="420"/>
+
+    <!-- Return to dashboard -->
+    <Button text="Back to Dashboard"
+            onAction="#goBack"
+            prefWidth="160"/>
+
+</VBox>

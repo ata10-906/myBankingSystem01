@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="CustomerController"
+      alignment="CENTER"
+      spacing="12"
+      style="-fx-padding: 25;">
+
+    <Label text="CUSTOMER REGISTRATION"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="firstNameField"
+               promptText="First Name"
+               maxWidth="250"/>
+
+    <TextField fx:id="surnameField"
+               promptText="Surname"
+               maxWidth="250"/>
+
+    <TextField fx:id="addressField"
+               promptText="Address"
+               maxWidth="250"/>
+
+    <TextField fx:id="contactField"
+               promptText="Contact Number"
+               maxWidth="250"/>
+
+    <TextField fx:id="usernameField"
+               promptText="Create Username"
+               maxWidth="250"/>
+
+    <PasswordField fx:id="passwordField"
+                   promptText="Create Password"
+                   maxWidth="250"/>
+
+    <Button text="Register Customer"
+            onAction="#registerCustomer"/>
+
+    <Label fx:id="messageLabel"
+           wrapText="true"/>
+
+    <Button text="Back to Login"
+            onAction="#goBack"/>
+
+</VBox>

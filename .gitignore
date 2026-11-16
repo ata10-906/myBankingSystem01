@@ -1,0 +1,15 @@
+# IntelliJ IDEA configuration
+.idea/
+*.iml
+
+# Compiled Java files
+out/
+*.class
+
+# Build directoriesPS C:\Users\Atang\IdeaProjects\myBankingSystem01>
+target/
+build/
+
+# Operating system files
+.DS_Store
+Thumbs.db

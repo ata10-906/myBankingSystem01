@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="DashBoardController"
+      alignment="CENTER"
+      spacing="12"
+      style="-fx-padding: 25;">
+
+    <Label text="CUSTOMER DASHBOARD"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <Label text="Welcome to your Banking System"/>
+
+    <Button text="Customer Details"
+            prefWidth="220"
+            onAction="#openCustomer"/>
+
+    <Button text="Manage Accounts"
+            prefWidth="220"
+            onAction="#openAccounts"/>
+
+    <Button text="Transactions"
+            prefWidth="220"
+            onAction="#openTransactions"/>
+
+    <Button text="Interest Management"
+            prefWidth="220"
+            onAction="#openInterest"/>
+
+    <Button text="Logout"
+            prefWidth="220"
+            onAction="#handleLogout"/>
+
+</VBox>
