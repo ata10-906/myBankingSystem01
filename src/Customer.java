@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.UUID;
 
 public class Customer {
-
-    private static long nextCustomerID = 1;
 
     private String customerID;
     private String firstname;
@@ -16,7 +13,8 @@ public class Customer {
     private Credentials credentials;
 
     public Customer(String firstname, String surname, String address, long contactNo) {
-        customerID = "C" + nextCustomerID++;
+
+        customerID = "C-" + UUID.randomUUID();
 
         this.firstname = firstname;
         this.surname = surname;
@@ -26,8 +24,21 @@ public class Customer {
         accounts = new ArrayList<>();
     }
 
+    // Constructor for restoring an existing customer
+    public Customer(String customerID, String firstname, String surname, String address, long contactNo) {
+
+        this.customerID = customerID;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.address = address;
+        this.contactNo = contactNo;
+
+        this.accounts = new ArrayList<>();
+    }
+
     //Opens an account based on the selected account type.
     public Account openAccount(String accountType, double initialDeposit, String branch, Employer employer) {
+
         Account account;
 
         switch (accountType.toLowerCase()) {
@@ -51,6 +62,19 @@ public class Customer {
         return account;
     }
 
+    // Removes an account if database saving fails.
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+    }
+
+    // Adds an existing account retrieved from the database.
+    public void addAccount(Account account) {
+        if (account != null && !accounts.contains(account)) {
+            accounts.add(account);
+        }
+    }
+
+    //Return an unmodifiable list of customer accounts.
     public List<Account> getAccounts() {
         return Collections.unmodifiableList(accounts);
     }
@@ -63,31 +87,38 @@ public class Customer {
         this.contactNo = contactNo;
     }
 
+    //Assign credentials to the customer
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
     }
 
+    //Returns customer credentials
     public Credentials getCredentials() {
         return credentials;
     }
 
+    //Return customer ID
     public String getCustomerID() {
         return customerID;
     }
 
-    public String getFirstname() {
+    //Return first name
+    public String getFirstName() {
         return firstname;
     }
 
+    //Return surname
     public String getSurname() {
         return surname;
     }
 
+    //Return address
     public String getAddress() {
         return address;
     }
 
-    public long getcontactNo() {
+    //Return contact number
+    public long getContactNo() {
         return contactNo;
     }
 }

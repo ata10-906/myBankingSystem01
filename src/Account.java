@@ -31,6 +31,30 @@ public abstract class Account {
         }
     }
 
+    //Restore an existing account from the database.
+    protected Account(String accountNumber, double balance, String branch, LocalDate openDate) {
+
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.branch = branch;
+        this.openDate = openDate;
+
+        transactions = new ArrayList<>();
+
+        //Prevent future account numbers from colliding.
+        try {
+            long restoredNumber = Long.parseLong(accountNumber);
+
+            if (restoredNumber >= nextAccountNumber) {
+                nextAccountNumber = restoredNumber + 1;
+            }
+        } catch (NumberFormatException e) {
+            //Account number is not numeric.
+        }
+    }
+
+
+
     //Deposits money into the account.
     public Transaction deposit(double amount) {
         if (amount <= 0) {
@@ -74,6 +98,11 @@ public abstract class Account {
         }
         balance += interest;
         return recordTransaction(interest, TransactionType.INTEREST);
+    }
+
+    // Updates the next account number based on existing database records.
+    public static void setNextAccountNumber(long nextNumber) {
+        nextAccountNumber = nextNumber;
     }
 
     public String getAccountNumber() {

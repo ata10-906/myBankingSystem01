@@ -18,7 +18,7 @@ public class Employer {
         return companyAddress;
     }
 
-    public long getEmployerNumber() {
+    public long getEmployeeNumber() {
         return employeeNumber;
     }
 }

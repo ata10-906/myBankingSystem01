@@ -35,10 +35,42 @@ public class InterestController {
     }
 
     @FXML private void processInterest() {
-        InterestBearing account  = getInterestAccount();
+        InterestBearing interestAccount = getInterestAccount();
 
-        if (account != null) {
-            messageLabel.setText("Monthly interest processed successfully.");
+        if (interestAccount != null) {
+
+            Account account = AppSession.getSelectedAccount();
+
+            // Step 1: Calculate the interest.
+            double interestAmount = interestAccount.calculateInterest();
+
+            if (interestAmount <= 0) {
+                messageLabel.setText("No interest is available to process.");
+                return;
+            }
+
+            // Step 2: Process interest in the database.
+            AccountDAO accountDAO = new AccountDAO();
+
+            Transaction transaction = accountDAO.processInterest(
+                    account.getAccountNumber(),
+                    interestAmount
+            );
+
+            // Step 3: Update the in-memory account only if database processing succeeds.
+            if (transaction != null) {
+
+                interestAccount.payInterest();
+
+                messageLabel.setText(String.format(
+                        "Monthly interest processed successfully! BWP %.2f added.",
+                        interestAmount
+                ));
+
+            } else {
+
+                messageLabel.setText("Failed to process monthly interest.");
+            }
         }
     }
 

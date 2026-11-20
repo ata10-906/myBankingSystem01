@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class InvestmentAccount extends Account implements InterestBearing{
 
     //0.05 represents 5%
@@ -6,10 +8,18 @@ public class InvestmentAccount extends Account implements InterestBearing{
     private static final double MINIMUM_INITIAL_DEPOSIT = 500.00;
 
     public InvestmentAccount(double initialDeposit, String branch) {
+
         super(checkInitialDeposit(initialDeposit), branch);
     }
 
+    //Restores an existing Investment Account.
+    public InvestmentAccount(String accountNumber, double balance, String branch, LocalDate openDate) {
+
+        super(accountNumber, balance, branch, openDate);
+    }
+
     private static double checkInitialDeposit(double amount) {
+
         if (amount < MINIMUM_INITIAL_DEPOSIT) {
             throw new AccountRuleException("Investment Account require at least BWP500.");
         }

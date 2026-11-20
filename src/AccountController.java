@@ -7,6 +7,8 @@ import javafx.util.StringConverter;
 
 public class AccountController {
 
+    private final AccountDAO accountDAO = new AccountDAO();
+
     @FXML private ComboBox<String> accountTypeBox;
     @FXML private TextField depositField;
     @FXML private TextField branchField;
@@ -83,18 +85,14 @@ public class AccountController {
             String depositText = depositField.getText().trim();
 
             if (branch.isEmpty() || depositText.isEmpty()) {
-                messageLabel.setText(
-                        "Please enter the branch and initial deposit."
-                );
+                messageLabel.setText("Please enter the branch and initial deposit.");
                 return;
             }
 
             double amount = Double.parseDouble(depositText);
 
             if (!Double.isFinite(amount) || amount <= 0) {
-                messageLabel.setText(
-                        "Enter a valid initial deposit greater than zero."
-                );
+                messageLabel.setText("Enter a valid initial deposit greater than zero.");
                 return;
             }
 
@@ -107,9 +105,7 @@ public class AccountController {
 
             // The InvestmentAccount model also checks this minimum.
             if ("Investment".equals(type) && amount < 500.00) {
-                messageLabel.setText(
-                        "An Investment Account requires at least BWP 500.00."
-                );
+                messageLabel.setText("An Investment Account requires at least BWP 500.00.");
                 return;
             }
 
@@ -145,19 +141,43 @@ public class AccountController {
                 );
             }
 
-            // Customer.openAccount creates the correct subclass:
-            // SavingsAccount, InvestmentAccount, or ChequeAccount.
-            Account account = customer.openAccount(type, amount, branch, employer);
+            // Create the account object.
+            Account account = customer.openAccount(
+                    type,
+                    amount,
+                    branch,
+                    employer
+            );
 
-            // Keep the newly created account in the active application session.
+          // Save the account permanently to the database.
+            boolean saved = accountDAO.saveAccount(
+                    customer.getCustomerID(),
+                    account
+            );
+
+            // Check whether database saving was successful.
+            if (!saved) {
+
+                customer.removeAccount(account);
+
+                messageLabel.setText(
+                        "Account creation failed. The account was not saved."
+                );
+
+                return;
+            }
+
+            // Saving succeeded.
             AppSession.setSelectedAccount(account);
 
-            // Reload the logged-in customer's accounts in the ComboBox.
+            // Refresh the account dropdown.
             refreshAccounts();
+
             existingAccountBox.setValue(account);
 
-            messageLabel.setText(
-                    type + " account opened successfully. Account number: " + account.getAccountNumber());
+            // Display success message.
+            messageLabel.setText("Account opened successfully!\n" + "Account Number: " + account.getAccountNumber());
+
 
             // Clear the form after a successful account opening.
             depositField.clear();
@@ -170,12 +190,10 @@ public class AccountController {
             handleAccountTypeChanged();
 
         } catch (NumberFormatException e) {
-            messageLabel.setText(
-                    "Enter a valid number for the deposit and employee number."
+            messageLabel.setText("Enter a valid number for the deposit and employee number."
             );
         } catch (RuntimeException e) {
-            messageLabel.setText(
-                    "Account could not be opened: " + e.getMessage()
+            messageLabel.setText("Account could not be opened: " + e.getMessage()
             );
         }
     }

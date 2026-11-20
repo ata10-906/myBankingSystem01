@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class SavingsAccount extends Account implements InterestBearing{
 
     //0.0005 represents 0.05%
@@ -6,6 +8,11 @@ public class SavingsAccount extends Account implements InterestBearing{
     public SavingsAccount(double initialDeposit, String branch) {
 
         super(initialDeposit, branch);
+    }
+
+    //Restores an existing Savings Account.
+    public SavingsAccount(String accountNumber, double balance, String branch, LocalDate openDate) {
+        super(accountNumber, balance, branch, openDate);
     }
 
     //Savings Account do not allow withdrawals.
