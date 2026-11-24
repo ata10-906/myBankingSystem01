@@ -13,3 +13,6 @@ build/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# Banking system database
+banking_system.db
